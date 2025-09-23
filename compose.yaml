@@ -16,15 +16,6 @@ services:
       - DB_USER=${MYSQL_USER}
       - DB_PASSWORD=${MYSQL_PASSWORD}
       - DB_NAME=${MYSQL_DATABASE}
-    healthcheck:
-      test: [
-        "CMD-SHELL",
-        "curl -f http://127.0.0.1:8090 | grep 'TIME' || exit 1"
-      ]
-      interval: 10s
-      timeout: 10s
-      retries: 3
-      start_period: 5s
 
   db:
     image: mysql:8

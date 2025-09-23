@@ -10,7 +10,8 @@ services:
         ipv4_address: 172.20.0.5
     restart: always
     depends_on:
-      - db
+      db:
+        condition: service_healthy
     environment:
       - DB_HOST=db
       - DB_USER=${MYSQL_USER}
@@ -29,3 +30,9 @@ services:
       - MYSQL_PASSWORD=${MYSQL_PASSWORD}
       - MYSQL_ROOT_HOST="%"
     restart: on-failure
+    healthcheck:
+      test: "mysql -u$MYSQL_USER -p$MYSQL_PASSWORD -e 'select 1'"
+      interval: 5s
+      start_period: 10s
+      retries: 3
+

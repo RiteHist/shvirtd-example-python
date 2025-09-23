@@ -34,5 +34,5 @@ services:
       test: "mysql -u$MYSQL_USER -p$MYSQL_PASSWORD -e 'select 1'"
       interval: 5s
       start_period: 10s
-      retries: 3
+      retries: 10
 

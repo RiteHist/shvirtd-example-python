@@ -17,8 +17,11 @@ services:
       - DB_PASSWORD=${MYSQL_PASSWORD}
       - DB_NAME=${MYSQL_DATABASE}
     healthcheck:
-      test: ["CMD", "curl", "-f", "http://localhost:8090"]
-      interval: 30s
+      test: [
+        "CMD-SHELL",
+        "curl -f http://127.0.0.1:8090 | grep 'TIME' || exit 1"
+      ]
+      interval: 10s
       timeout: 10s
       retries: 3
       start_period: 5s
@@ -33,4 +36,5 @@ services:
       - MYSQL_DATABASE=${MYSQL_DATABASE}
       - MYSQL_USER=${MYSQL_USER}
       - MYSQL_PASSWORD=${MYSQL_PASSWORD}
+      - MYSQL_ROOT_HOST="%"
     restart: on-failure
